@@ -62,8 +62,26 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new List<int>(); // Placeholder
+                // Store result in list
+                List<int> result = new List<int>();
+
+                // Iterate through array elements
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    // Calculate index based on value
+                    int index = Math.Abs(nums[i]) - 1;  
+
+                    // Check if number at that index is positive
+                    if (nums[index] > 0)                
+                        nums[index] = -nums[index];     // Mark the number as visited by negating it
+                }
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    // If positive, the index + 1 is a missing number
+                    if (nums[i] > 0) result.Add(i + 1); 
+                }
+                // Return list of missing numbers
+                return result;                          
             }
             catch (Exception)
             {
@@ -76,8 +94,30 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                // Initialize two pointers for left from staring index and right from ending index
+                int left = 0, right = nums.Length - 1; 
+
+                // Loop until pointers meet     
+                while (left < right)                        
+                {
+                    // Swap if the left pointer points to odd number and right pointer points to even number
+                    if (nums[left] % 2 > nums[right] % 2)
+                    {
+                        //Perform swapping
+                        int temp = nums[left];
+                        nums[left] = nums[right];
+                        nums[right] = temp;
+                    }
+
+                    // Move left pointer if number is even
+                    if (nums[left] % 2 == 0) left++; 
+
+                    // Move right pointer if number is odd     
+                    if (nums[right] % 2 == 1) right--;    
+                }
+
+                // Return sorted array
+                return nums;                             
             }
             catch (Exception)
             {
@@ -90,8 +130,25 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return new int[0]; // Placeholder
+                // Create dictionary to store number and its index
+                Dictionary<int, int> map = new Dictionary<int, int>();   
+
+                // Iterate through array elements
+                for (int i = 0; i < nums.Length; i++)
+                {
+                    // Calculate the complement of the current number
+                    int complement = target - nums[i];  
+
+                    // Check if the complement exists in the dictionary
+                    if (map.ContainsKey(complement))
+                        return new int[] { map[complement], i }; // Return the indices of the complement and current number
+
+                    // Store current number with its index in the dictionary
+                    map[nums[i]] = i;
+                }
+
+                // Return an empty array if no solution is found
+                return new int[0];
             }
             catch (Exception)
             {
@@ -104,8 +161,13 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                // Sort array to access the largest and smallest values
+                Array.Sort(nums);
+                int n = nums.Length;
+
+                // Return the maximum product from either the two smallest and the largest number or the three largest numbers
+                return Math.Max(nums[0] * nums[1] * nums[n - 1],
+                                nums[n - 1] * nums[n - 2] * nums[n - 3]);
             }
             catch (Exception)
             {
@@ -118,8 +180,23 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return "101010"; // Placeholder
+                if (decimalNumber == 0) return "0";
+
+                // Initialize empty string for binary result
+                string binary = "";
+
+                // Loop until decimal number is reduced to zero
+                while (decimalNumber > 0)
+                {
+                    // Prepend the remainder to binary string
+                    binary = (decimalNumber % 2) + binary;
+
+                    // Divide number by 2 for next iteration
+                    decimalNumber /= 2;
+                }
+
+                // Return final binary representation
+                return binary;
             }
             catch (Exception)
             {
@@ -132,8 +209,22 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                // Initialize pointers for binary search with left as starting index & right as ending index
+                int left = 0, right = nums.Length - 1;
+                while (left < right)
+                {
+                    // Calculate the middle index
+                    int mid = left + (right - left) / 2;
+
+                    // If mid is greater than right, minimum is in right half
+                    if (nums[mid] > nums[right])
+                        left = mid + 1;             // Move left pointer to mid + 1
+                    else
+                        right = mid;                // Move right pointer to mid
+                }
+
+                // Return minimum element found at left pointer
+                return nums[left];
             }
             catch (Exception)
             {
@@ -146,8 +237,24 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return false; // Placeholder
+                // Negative numbers are not palindromes
+                if (x < 0) return false;
+
+                // Store original number and initialize reversed
+                int origin = x, reverse = 0;
+
+                // Loop through all values
+                while (x != 0)
+                {
+                    // Get last digit of x and build reversed number
+                    reverse = reverse * 10 + x % 10;
+
+                    // Remove the last digit from x
+                    x = x/10;
+                }
+
+                // Check if original and reversed numbers are same
+                return origin == reverse;
             }
             catch (Exception)
             {
@@ -160,8 +267,21 @@ namespace Assignment_2
         {
             try
             {
-                // Write your code here
-                return 0; // Placeholder
+                if (n <= 1) return n;
+
+                // Initialize first two Fibonacci numbers
+                int a = 0, b = 1;
+
+                // Calculate Fibonacci numbers from 2 to n
+                for (int i = 2; i <= n; i++)
+                {
+                    int temp = a + b;           // Calculate next Fibonacci number
+                    a = b;                      // Move forward in sequence
+                    b = temp;                   // Update last number to new Fibonacci number
+                }
+
+                // Return nth Fibonacci number
+                return b;
             }
             catch (Exception)
             {
